@@ -42,8 +42,8 @@ std::vector<std::string> getAvailableSerialPorts() {
 // Motor control unit, handles dds command subscription, state publishing, and serial communication
 class MotorUnit {
 public:
-    MotorUnit(int id, std::shared_ptr<SerialPort> serial, const std::string& cmdTopic, const std::string& stateTopic)
-        : id_(id), serial_(serial), cmdTopic_(cmdTopic), stateTopic_(stateTopic) {
+    MotorUnit(int id, std::shared_ptr<SerialPort> serial, const std::string& cmdTopic, const std::string& stateTopic, float close_limit)
+        : id_(id), serial_(serial), cmdTopic_(cmdTopic), stateTopic_(stateTopic), close_limit_(close_limit) {
 
         cmd_.id = id_;
         cmd_.motorType = MotorType::M4010;
@@ -71,7 +71,8 @@ private:
             cmd_.mode = queryMotorMode(cmd_.motorType, MotorMode::FOC);
             cmd_.kp = msg.kp() / (gear_ratio_ * gear_ratio_);
             cmd_.kd = msg.kd() / (gear_ratio_ * gear_ratio_);
-            cmd_.q = msg.q() * gear_ratio_;
+            float q_cmd = (msg.q() < close_limit_) ? close_limit_ : msg.q();
+            cmd_.q = q_cmd * gear_ratio_;
             cmd_.dq = msg.dq() * gear_ratio_;
             cmd_.tau = msg.tau() / gear_ratio_;
             cmd_.timeout = 0;
@@ -88,6 +89,7 @@ private:
 
     int id_;
     float gear_ratio_;
+    float close_limit_;
     std::string cmdTopic_, stateTopic_;
     std::shared_ptr<SerialPort> serial_;
     MotorCmd cmd_;
@@ -101,7 +103,8 @@ private:
 class Dex1GripperServer {
 public:
     // Constructor attempts to detect motors on provided serial ports
-    Dex1GripperServer(const std::vector<std::string>& ports) {
+    Dex1GripperServer(const std::vector<std::string>& ports, float close_limit)
+        : close_limit_(close_limit) {
         bool found = false;
         for (int attempt = 0; attempt < 3 && !found; ++attempt) {
             detectMotors_(ports);
@@ -122,7 +125,8 @@ public:
             std::string side = (id == 0) ? "right" : "left";
             std::string cmdTopic = "rt/dex1/" + side + "/cmd";
             std::string stateTopic = "rt/dex1/" + side + "/state";
-            motor_info.unit = std::make_unique<MotorUnit>(id, motor_info.serial, cmdTopic, stateTopic);
+            spdlog::info("  - Close limit: {:.3f} rad", close_limit_);
+            motor_info.unit = std::make_unique<MotorUnit>(id, motor_info.serial, cmdTopic, stateTopic, close_limit_);
         }
     }
 
@@ -154,6 +158,8 @@ public:
     }
 
 private:
+    float close_limit_;
+
     struct MotorInfo {
         std::shared_ptr<SerialPort> serial;
         std::string port_name;
@@ -225,7 +231,9 @@ int main(int argc, char** argv) {
         return 0;
     }
 
-    Dex1GripperServer server(ports);
+    float close_limit = vm["close-limit"].as<float>();
+    spdlog::info("Close limit: {:.3f} rad", close_limit);
+    Dex1GripperServer server(ports, close_limit);
 
     if (vm.count("calibration")) {
         server.calibrate();

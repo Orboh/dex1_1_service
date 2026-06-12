@@ -30,7 +30,8 @@ inline po::variables_map helper(int argc, char** argv)
         ("help,h", "produce help message")
         ("version,v", "show version")
         ("network,n", po::value<std::string>()->default_value("eth0"), "dds networkInterface")
-        ("calibration,c", "calibrate the gripper motor");
+        ("calibration,c", "calibrate the gripper motor")
+        ("close-limit,L", po::value<float>()->default_value(4.4f), "minimum position limit when closing the gripper [rad]");
 
     po::variables_map vm;
     po::store(po::parse_command_line(argc, argv, desc), vm);
