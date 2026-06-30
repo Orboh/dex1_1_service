@@ -1,0 +1,75 @@
+{
+  "ik": {
+    "left_error_m": 0.02654348623804084,
+    "right_elbow_error_m": 0.08846346942836943,
+    "right_error_m": 0.0345791292924956
+  },
+  "left_arm_body_center": {
+    "left_elbow": 0.5,
+    "left_shoulder_pitch": 0.0,
+    "left_shoulder_roll": 0.0,
+    "left_shoulder_yaw": 0.0,
+    "left_wrist_pitch": 0.0,
+    "left_wrist_roll": 0.0,
+    "left_wrist_yaw": 0.0
+  },
+  "left_basket_pose": {
+    "left_elbow": 0.9794405152539313,
+    "left_shoulder_pitch": -0.8214557999090124,
+    "left_shoulder_roll": 0.006708521781937704,
+    "left_shoulder_yaw": -1.5917492212962663,
+    "left_wrist_pitch": -0.3,
+    "left_wrist_roll": 1.5,
+    "left_wrist_yaw": 0.6
+  },
+  "mujoco_right_arm_drop_pose": {
+    "right_elbow_joint": 0.04394802606325776,
+    "right_shoulder_pitch_joint": -0.44325087061261514,
+    "right_shoulder_roll_joint": -0.21159058126729915,
+    "right_shoulder_yaw_joint": 0.03582111616143363,
+    "right_wrist_pitch_joint": -0.4,
+    "right_wrist_roll_joint": -0.4,
+    "right_wrist_yaw_joint": 0.4
+  },
+  "positions": {
+    "left_hand_xyz": [
+      0.3063407478443439,
+      -0.06534491493584829,
+      0.7404129254859644
+    ],
+    "left_target_xyz": [
+      0.32,
+      -0.08,
+      0.7230000000000001
+    ],
+    "right_elbow_xyz": [
+      0.09895641244271419,
+      -0.1775465924100016,
+      0.9283794167609635
+    ],
+    "right_target_xyz": [
+      0.18165822481510724,
+      -0.14984170821730508,
+      0.9888210065263989
+    ]
+  },
+  "right_arm_body_center": {
+    "right_elbow": 0.5,
+    "right_shoulder_pitch": -0.2,
+    "right_shoulder_roll": -0.1,
+    "right_shoulder_yaw": 0.0,
+    "right_wrist_pitch": 0.0,
+    "right_wrist_roll": 0.0,
+    "right_wrist_yaw": 0.0
+  },
+  "right_arm_drop_pose": {
+    "right_elbow": 0.04394802606325776,
+    "right_shoulder_pitch": -0.44325087061261514,
+    "right_shoulder_roll": -0.21159058126729915,
+    "right_shoulder_yaw": 0.03582111616143363,
+    "right_wrist_pitch": -0.4,
+    "right_wrist_roll": -0.4,
+    "right_wrist_yaw": 0.4
+  },
+  "source_xml": "/home/techshare/drl_kit/mujoco_ws/ts_mujoco-main/unitree_robots/g1/scene_29dof_with_hand.xml"
+}

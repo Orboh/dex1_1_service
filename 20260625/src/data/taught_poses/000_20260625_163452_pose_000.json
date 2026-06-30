@@ -1,0 +1,29 @@
+{
+  "snapshot": 0,
+  "timestamp": "20260625_163452",
+  "label": "pose_000",
+  "mode_machine": 5,
+  "left_arm": {
+    "left_shoulder_pitch": 0.0036791572347283363,
+    "left_shoulder_roll": 0.2526993751525879,
+    "left_shoulder_yaw": -0.04778110608458519,
+    "left_elbow": 1.199117660522461,
+    "left_wrist_roll": -0.17136242985725403,
+    "left_wrist_pitch": -1.062629222869873,
+    "left_wrist_yaw": -1.0143927335739136
+  },
+  "right_arm": {
+    "right_shoulder_pitch": -0.11606722325086594,
+    "right_shoulder_roll": -0.35777705907821655,
+    "right_shoulder_yaw": -0.059789299964904785,
+    "right_elbow": -0.23972046375274658,
+    "right_wrist_roll": -0.4610571265220642,
+    "right_wrist_pitch": -1.0822594165802002,
+    "right_wrist_yaw": 0.8287091851234436
+  },
+  "waist": {
+    "waist_yaw": 0.0061736637726426125,
+    "waist_roll": 0.005382257979363203,
+    "waist_pitch": -0.07451638579368591
+  }
+}
